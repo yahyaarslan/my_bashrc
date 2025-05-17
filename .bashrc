@@ -56,6 +56,15 @@ export LESS_TERMCAP_ue=$'\E[0m'        # End underline
 export LESS_TERMCAP_us=$'\E[01;32m'    # Begin underline
 
 #######################################
+# ROOT USER SUPPORT
+#######################################
+
+# Dynamic aliases for preserving your bash environment when switching to root
+alias su='su -c "export TERM=$TERM; [ -f '$HOME/.bashrc' ] && source '$HOME/.bashrc'; bash"'
+alias sudo='sudo -E'
+alias rootbash='sudo bash --rcfile $HOME/.bashrc'
+
+#######################################
 # PROMPT
 #######################################
 
