@@ -27,8 +27,16 @@ fi
 echo "Copying .bashrc to $TARGET_BASHRC"
 cp "$BASHRC" "$TARGET_BASHRC"
 
-echo "Copying .bashrc_custom to $TARGET_BASHRC_CUSTOM"
-cp "$BASHRC_CUSTOM" "$TARGET_BASHRC_CUSTOM"
+# Only copy .bashrc_custom if it exists
+if [ -f "$BASHRC_CUSTOM" ]; then
+    echo "Copying .bashrc_custom to $TARGET_BASHRC_CUSTOM"
+    cp "$BASHRC_CUSTOM" "$TARGET_BASHRC_CUSTOM"
+
+    # Set proper permissions for .bashrc_custom
+    chmod 600 "$TARGET_BASHRC_CUSTOM" # More restrictive since it has sensitive information
+else
+    echo "No .bashrc_custom found, skipping..."
+fi
 
 # Ensure .bashrc sources .bashrc_custom
 if ! grep -q "source.*\.bashrc_custom" "$TARGET_BASHRC"; then
@@ -38,9 +46,8 @@ else
     echo ".bashrc already includes .bashrc_custom"
 fi
 
-# Set proper permissions
+# Set proper permissions for .bashrc
 chmod 644 "$TARGET_BASHRC"
-chmod 600 "$TARGET_BASHRC_CUSTOM" # More restrictive since it has sensitive information
 
 echo "Installation complete!"
 echo "Please run 'source ~/.bashrc' to apply changes to your current session"
