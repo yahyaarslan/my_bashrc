@@ -213,7 +213,7 @@ trim() {
 if [ -f ~/.bashrc_custom ]; then
   . ~/.bashrc_custom
 else
-  echo "Note: ~/.bashrc_custom not found. Personal settings not loaded."
+  # Skip if .bashrc_custom doesn't exist
 fi
 
 # End of .bashrc
