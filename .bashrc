@@ -212,8 +212,6 @@ trim() {
 # Source custom configurations
 if [ -f ~/.bashrc_custom ]; then
   . ~/.bashrc_custom
-else
-  # Skip if .bashrc_custom doesn't exist
 fi
 
 # End of .bashrc
